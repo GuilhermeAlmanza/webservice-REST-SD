@@ -5,7 +5,35 @@
             "name": "uhasuhasuhasuhas",
             "artist": "artista nao maluco",
             "album": "album anormal",
+            "views": 151525
+        },
+        {
+            "id": 321,
+            "name": "uhasuhasuhasuhas",
+            "artist": "artista nao maluco",
+            "album": "album anormal",
+            "views": 151515
+        },
+        {
+            "id": 111,
+            "name": "uhasuhasuhasuhas",
+            "artist": "artista nao maluco",
+            "album": "album anormal",
             "views": 151515
         }
-    ]
+    ],
+    "0": {
+        "id": 123,
+        "name": "uhasuhasuhasuhas",
+        "artist": "artista nao maluco",
+        "album": "album anormal",
+        "views": 151524
+    },
+    "0": {
+        "id": 123,
+        "name": "uhasuhasuhasuhas",
+        "artist": "artista nao maluco",
+        "album": "album anormal",
+        "views": 151525
+    }
 }

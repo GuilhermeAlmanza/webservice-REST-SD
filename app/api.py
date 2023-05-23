@@ -75,9 +75,14 @@ def main_page():
 def set_music(id:str=None):
     if request.method == 'GET':
         if id:
-            music = search_music(id)
-            if (music):
-                return jsonify(music), 200
+            music = search_music(id, True)
+            if (music >= 0):
+                data = load_data()
+                obj = data.get("musicCatalog", [{}])[music]
+                obj['views'] += 1
+                data[music] = obj
+                update_data(data)
+                return jsonify(obj), 200
             else:
                 return jsonify(
                     {"error": f"Id {id} not found"}
@@ -88,7 +93,6 @@ def set_music(id:str=None):
     elif request.method == 'POST':
         music_obj = validate_music(request.json)
         if type(music_obj) == Music:
-            print("OBJ: ", music_obj)
             data = load_data()
             data.get("musicCatalog", [{}]).append(vars(music_obj))
             update_data(data)
@@ -104,11 +108,9 @@ def set_music(id:str=None):
         music_obj = validate_music(request.json)
         if type(music_obj) == Music:
             index = search_music(music_obj.id, True)
-            print("INDEX: ", index)
             if index >= 0:
                 #update
                 data = load_data()
-                print(data)
                 data.get("musicCatalog", [{}])[index]['name'] = music_obj.name
                 data.get("musicCatalog", [{}])[index]['artist'] = music_obj.artist
                 data.get("musicCatalog", [{}])[index]['album'] = music_obj.album
@@ -130,7 +132,7 @@ def set_music(id:str=None):
         if id:
             print(id)
             index = search_music(id, True)
-            if index > 0:
+            if index >= 0:
                 print(index)
                 data = load_data()
                 data.get("musicCatalog", [{}]).pop(index)
@@ -142,3 +144,7 @@ def set_music(id:str=None):
                 return jsonify(
                     {"Delete":f"Id {id} not found"}
                 ), 400
+        else:
+            return jsonify(
+                {"Delete":"Id not found"}
+            ), 400
